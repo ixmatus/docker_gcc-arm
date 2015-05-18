@@ -52,8 +52,6 @@ chmod +x configure
 
 cd /opt/cross/builds/build-glibc
 
-apt-get install makeinfo msgfmt 
-
 ../../deps/glibc-2.15/configure --prefix="/opt/cross/${TARGET}" --build="x86_64" --host="${TARGET}" --target="${TARGET}" --with-headers="/opt/cross/${TARGET}/include" --disable-multilib libc_cv_forced_unwind=yes --enable-kernel=3.16.2 --enable-add-ons=nptl,ports libc_cv_ctors_header=yes
 make install-bootstrap-headers=yes install-headers
 make -j4 csu/subdir_lib

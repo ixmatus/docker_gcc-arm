@@ -13,6 +13,8 @@ RUN apt-get update && \
         gcc          \
         gawk         \
         wget         \
+        makeinfo     \
+        msgfmt       \
         bzip2        \
         xz-utils     \
         lib32stdc++6 \
