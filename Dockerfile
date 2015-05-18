@@ -13,7 +13,6 @@ RUN apt-get update && \
         gcc          \
         gawk         \
         wget         \
-        makeinfo     \
         gettext      \
         texinfo      \
         bzip2        \
