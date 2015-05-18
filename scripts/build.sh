@@ -59,4 +59,17 @@ install csu/crt1.o csu/crti.o csu/crtn.o "/opt/cross/${TARGET}/lib"
 arm-linux-gnueabi-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o "/opt/cross/${TARGET}/lib/libc.so"
 touch "/opt/cross/${TARGET}/include/gnu/stubs.h"
 
-cd ../
+cd ../build-gcc
+
+make -j4 all-target-libgcc
+make install-target-libgcc
+
+cd ../build-glibc
+
+make -j4
+make install
+
+cd ../build-gcc
+
+make -j4
+make install
