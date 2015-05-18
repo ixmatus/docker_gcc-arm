@@ -14,7 +14,8 @@ RUN apt-get update && \
         gawk         \
         wget         \
         makeinfo     \
-        msgfmt       \
+        gettext      \
+        texinfo      \
         bzip2        \
         xz-utils     \
         lib32stdc++6 \
