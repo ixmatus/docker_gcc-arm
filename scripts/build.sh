@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TARGET="arm-linux-eabi"
+TARGET="arm-linux-gnueabi"
 
 cd /opt/cross/deps
 
@@ -10,6 +10,9 @@ ln -s ../gmp-6.0.0 gmp
 ln -s ../mpc-1.0.2 mpc
 ln -s ../isl-0.12.2 isl
 ln -s ../cloog-0.18.1 cloog
+
+cd ../glibc-2.15
+ln -s ../glibc-ports-2.15 ports
 
 export PATH=/opt/cross/bin:$PATH
 
@@ -27,7 +30,7 @@ cd ../
 ls -al /opt/cross/deps
 
 # Build linux headers
-cd /opt/cross/deps/linux-3.17.2
+cd /opt/cross/deps/linux-3.16.2
 make ARCH=arm INSTALL_HDR_PATH="/opt/cross/${TARGET}" headers_install
 cd ../
 cd ../builds && mkdir build-gcc && cd build-gcc
@@ -40,11 +43,11 @@ make install-gcc
 # Build glibc
 cd ../ && mkdir build-glibc && cd build-glibc
 
-../../deps/glibc-2.20/configure --prefix="/opt/cross/${TARGET}" --build="${MACHTYPE}" --host="${TARGET}" --target="${TARGET}"
+../../deps/glibc-2.15/configure --prefix="/opt/cross/${TARGET}" --build="x86_64" --host="${TARGET}" --target="${TARGET}" --with-headers="/opt/cross/${TARGET}/include" --disable-multilib libc_cv_forced_unwind=yes --enable-kernel=3.16.2 --enable-add-ons=nptl,ports
 make install-bootstrap-headers=yes install-headers
 make -j4 csu/subdir_lib
 install csu/crt1.o csu/crti.o csu/crtn.o "/opt/cross/${TARGET}/lib"
-arm-linux-eabi-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o "/opt/cross/${TARGET}/lib/libc.so"
+arm-linux-gnueabi-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o "/opt/cross/${TARGET}/lib/libc.so"
 touch "/opt/cross/${TARGET}/include/gnu/stubs.h"
 
 cd ../
