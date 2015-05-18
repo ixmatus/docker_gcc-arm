@@ -4,6 +4,7 @@ TARGET="arm-linux-gnueabi"
 
 cd /opt/cross/deps
 
+# These get automatically built with GCC
 cd ./gcc-4.9.2
 ln -s ../mpfr-3.1.2 mpfr
 ln -s ../gmp-6.0.0 gmp
@@ -11,6 +12,7 @@ ln -s ../mpc-1.0.2 mpc
 ln -s ../isl-0.12.2 isl
 ln -s ../cloog-0.18.1 cloog
 
+# We need glibc-ports in order to build a cross-compiled version
 cd ../glibc-2.15
 ln -s ../glibc-ports-2.15 ports
 
@@ -42,6 +44,9 @@ make install-gcc
 
 # Build glibc
 cd ../ && mkdir build-glibc && cd build-glibc
+
+# Apply our patch to accept make-4.0
+patch /opt/cross/scripts/glibc_configure_make-4.0.patch ../../deps/glibc-2.15/configure
 
 ../../deps/glibc-2.15/configure --prefix="/opt/cross/${TARGET}" --build="x86_64" --host="${TARGET}" --target="${TARGET}" --with-headers="/opt/cross/${TARGET}/include" --disable-multilib libc_cv_forced_unwind=yes --enable-kernel=3.16.2 --enable-add-ons=nptl,ports
 make install-bootstrap-headers=yes install-headers
