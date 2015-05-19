@@ -43,4 +43,9 @@ RUN cd /opt/cross/deps && for f in *.tar.*; do tar xf $f; done;
 
 ADD ./scripts /opt/cross/scripts
 
-RUN /opt/cross/scripts/build.sh
+RUN /opt/cross/scripts/setup.sh
+RUN /opt/cross/scripts/build-libs.sh
+
+ADD ./scripts_second_stage /opt/cross/scripts_second_stage
+
+RUN /opt/cross/scripts_second_stage/build-finish.sh
