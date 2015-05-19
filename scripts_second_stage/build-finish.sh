@@ -10,7 +10,7 @@ cd ./build-gcc
 make -j4 all-target-libgcc
 make install-target-libgcc
 
-cd ../build-glibc
+cd ../build-eglibc
 
 make -j4
 make install
