@@ -1,7 +1,7 @@
 .PHONY: build push
 
 build:
-	sudo docker build -t plumlife/gcc-arm:4.9 .
+	sudo docker build -t plumlife/crosstool-ng:gcc-4.9_eglibc-2.15 .
 
 push:
-	sudo docker push plumlife/gcc-arm:4.9
+	sudo docker push plumlife/crosstool-ng:gcc-4.9_eglibc-2.15
