@@ -1,6 +1,6 @@
 FROM debian:8.1
 
-RUN apt-get update && apt-get install -y subversion curl wget git xz-utils gcc g++ gperf bison flex texinfo bzip2 gawk make libtool libtool-bin automake libncurses5-dev
+RUN apt-get update && apt-get install -y subversion curl wget git xz-utils gcc g++ gperf bison flex texinfo bzip2 gawk make libtool libtool-bin automake libncurses5-dev vim
 
 WORKDIR /root
 
